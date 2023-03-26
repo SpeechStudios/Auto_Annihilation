@@ -167,7 +167,7 @@ public class GameManager : MonoBehaviour
         {
             item.Damage(item.CurrentHealth, DamageType.Instant);
         }
-        Camera.main.transform.GetComponent<VehicleCamera>().RestCar();
+        Camera.main.transform.GetComponent<VehicleCamera>().ResetCar();
         Physics.IgnoreLayerCollision(3, 9,true);
         EnableMeshRenderer(false);
         yield return new WaitForSeconds(0.25f);
