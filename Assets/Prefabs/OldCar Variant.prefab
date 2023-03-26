@@ -1,0 +1,251 @@
+%YAML 1.1
+%TAG !u! tag:unity3d.com,2011:
+--- !u!1001 &8113881798167417617
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 8113881798934938837}
+    m_Modifications:
+    - target: {fileID: 100000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_Name
+      value: Main Camera
+      objectReference: {fileID: 0}
+    - target: {fileID: 100000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_Layer
+      value: 6
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_RootOrder
+      value: 7
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 0.16139315
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 4.2038493
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -9.659844
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.9825542
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0.18520924
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.0165807
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: -0.0031581
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: target
+      value: 
+      objectReference: {fileID: 8113881798934938837}
+    - target: {fileID: 11400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: CarUI.GearText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: CarUI.speedText
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: CarUI.barShiftGUI
+      value: 
+      objectReference: {fileID: 0}
+    - target: {fileID: 11400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+      propertyPath: CarUI.tachometerNeedle
+      value: 
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+--- !u!4 &8113881798167021969 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 400000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+  m_PrefabInstance: {fileID: 8113881798167417617}
+  m_PrefabAsset: {fileID: 0}
+--- !u!1 &8113881798167451057 stripped
+GameObject:
+  m_CorrespondingSourceObject: {fileID: 100000, guid: 8512d52775bf95340b741dfb9552c938, type: 3}
+  m_PrefabInstance: {fileID: 8113881798167417617}
+  m_PrefabAsset: {fileID: 0}
+--- !u!114 &620556889
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 8113881798167451057}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 948f4100a11a5c24981795d21301da5c, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  volumeTrigger: {fileID: 8113881798167021969}
+  volumeLayer:
+    serializedVersion: 2
+    m_Bits: 64
+  stopNaNPropagation: 1
+  finalBlitToCameraTarget: 0
+  antialiasingMode: 1
+  temporalAntialiasing:
+    jitterSpread: 0.75
+    sharpness: 0.25
+    stationaryBlending: 0.95
+    motionBlending: 0.85
+  subpixelMorphologicalAntialiasing:
+    quality: 2
+  fastApproximateAntialiasing:
+    fastMode: 0
+    keepAlpha: 0
+  fog:
+    enabled: 1
+    excludeSkybox: 1
+  debugLayer:
+    lightMeter:
+      width: 512
+      height: 256
+      showCurves: 1
+    histogram:
+      width: 512
+      height: 256
+      channel: 3
+    waveform:
+      exposure: 0.12
+      height: 256
+    vectorscope:
+      size: 256
+      exposure: 0.12
+    overlaySettings:
+      linearDepth: 0
+      motionColorIntensity: 4
+      motionGridSize: 64
+      colorBlindnessType: 0
+      colorBlindnessStrength: 1
+  m_Resources: {fileID: 11400000, guid: d82512f9c8e5d4a4d938b575d47f88d4, type: 2}
+  m_ShowToolkit: 0
+  m_ShowCustomSorter: 0
+  breakBeforeColorGrading: 0
+  m_BeforeTransparentBundles: []
+  m_BeforeStackBundles: []
+  m_AfterStackBundles: []
+--- !u!1001 &8113881798934543495
+PrefabInstance:
+  m_ObjectHideFlags: 0
+  serializedVersion: 2
+  m_Modification:
+    m_TransformParent: {fileID: 0}
+    m_Modifications:
+    - target: {fileID: 118030, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_Name
+      value: OldCar Variant
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_RootOrder
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalPosition.x
+      value: 46.57
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalPosition.y
+      value: 6.59
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalPosition.z
+      value: -71.19
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalRotation.w
+      value: 0.7071067
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalRotation.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalRotation.y
+      value: 0.7071068
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalRotation.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.x
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.y
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: m_LocalEulerAnglesHint.z
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: activeControl
+      value: 1
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.carPower
+      value: 70
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.CarNitros
+      value: 120
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.stiffness
+      value: 8
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.shiftPower
+      value: 300
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.shiftUpRPM
+      value: 4000
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.maxSteerAngle
+      value: 35
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.showNormalGizmos
+      value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 11417596, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+      propertyPath: carSetting.LimitForwardSpeed
+      value: 120
+      objectReference: {fileID: 0}
+    m_RemovedComponents: []
+  m_SourcePrefab: {fileID: 100100000, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+--- !u!4 &8113881798934938837 stripped
+Transform:
+  m_CorrespondingSourceObject: {fileID: 424018, guid: 72662286a75375c4e907bc20dd734a99, type: 3}
+  m_PrefabInstance: {fileID: 8113881798934543495}
+  m_PrefabAsset: {fileID: 0}
