@@ -4,12 +4,12 @@ public abstract class EnemyAIBase
 {
     public abstract void EnterState(Enemy enemy);
     public abstract void UpdateState(Enemy enemy);
-    public void DisableCharachter(Enemy enemy, bool disable)
+    public void DisableCharachter(Enemy enemy, bool isDisabled)
     {
-        enemy.Animator.applyRootMotion = !disable;
-        enemy.GetComponent<Collider>().isTrigger = disable;
-        enemy.GetComponent<Rigidbody>().useGravity = !disable;
-        enemy.GetComponent<NavMeshAgent>().enabled = !disable;
+        enemy.Animator.applyRootMotion = !isDisabled;
+        enemy.GetComponent<Collider>().isTrigger = isDisabled;
+        enemy.GetComponent<Rigidbody>().useGravity = !isDisabled;
+        enemy.GetComponent<NavMeshAgent>().enabled = !isDisabled;
     }
 }
 public class EnemySpawnState : EnemyAIBase
@@ -38,7 +38,6 @@ public class EnemyRunState : EnemyAIBase
     public override void EnterState(Enemy enemy)
     {
         DisableCharachter(enemy, false);
-        //enemy.Animator.SetBool("Spawn", false);
         enemy.Animator.SetBool("StuckHit", false);
         enemy.Animator.SetBool("Run", true);
         RandomSoundTime = Random.Range(0.5f, 2f);
@@ -77,7 +76,7 @@ public class EnemyAttackState: EnemyAIBase
         enemy.DamageReduction = 4;
         enemy.Animator.SetTrigger("Attack");
         enemy.Animator.SetBool("Run", false);
-        enemy.Source.PlayOneShot(enemy.EnemyStikeSFX);
+        AudioSource.PlayClipAtPoint(enemy.EnemyStikeSFX, enemy.transform.position,1);
         Timer = 0;
     }
 
@@ -91,12 +90,14 @@ public class EnemyAttackState: EnemyAIBase
             enemy.SwitchState(enemy.RunState);
             enemy.Source.priority = 128;
             enemy.Source.spatialBlend = 1;
+            enemy.Source.volume = 0.2f;
         }
         if(Timer > enemy.AttackRate)
         {
             enemy.Animator.SetBool("StuckHit", true);
             enemy.Source.priority = 110;
             enemy.Source.spatialBlend = 0;
+            enemy.Source.volume = 1;
             enemy.Source.PlayOneShot(enemy.EnemyPunchSFX);
             Timer = 0;
         }
@@ -113,6 +114,7 @@ public class EnemyRammedState : EnemyAIBase
         enemy.Animator.SetBool("StuckHit", true);
         DisableCharachter(enemy, true);
         enemy.transform.LookAt(enemy.Player);
+        AudioSource.PlayClipAtPoint(enemy.EnemyRammedSFX, enemy.transform.position);
     }
 
     public override void UpdateState(Enemy enemy)

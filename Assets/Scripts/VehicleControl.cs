@@ -82,6 +82,8 @@ public class VehicleControl : MonoBehaviour, IDamageable
     {
         public GameObject brakeParticlePerfab;
         public ParticleSystem shiftParticle1, shiftParticle2;
+        public GameObject HitParticle;
+        public ParticleSystem InvunrableVFX;
         private GameObject[] wheelParticle = new GameObject[4];
     }
 
@@ -842,15 +844,20 @@ public class VehicleControl : MonoBehaviour, IDamageable
         }
     }
 
-
-
-
     public void Damage(float damage, DamageType dmgType)
     {
         if (!Invunrable)
         {
             currentHealth -= damage;
             GameManager.Instance.CheckWeaponDamage(damage, dmgType);
+
+            //Particle OnHit Effect
+            GameObject obj = Instantiate(carParticles.HitParticle, Camera.main.transform);
+            var ps1 = obj.GetComponent<ParticleSystem>().emission;
+            short vOut = System.Convert.ToInt16(Mathf.RoundToInt(damage * 10));
+            ps1.SetBurst(0, new ParticleSystem.Burst(1.0f, vOut, vOut));
+
+            //CheckDeath
             if (currentHealth < 0)
             {
                 currentHealth = 0;

@@ -18,14 +18,15 @@ public class Enemy : MonoBehaviour, IDamageable, ITargetable
     public Gradient HealthColors;
     public GameObject DeathEffect;
     [Header("SFX")]
-    public AudioClip EnemySpawnSFX;
     public List<AudioClip> DefaultSFX;
+    public AudioClip EnemySpawnSFX;
     public AudioClip EnemyStikeSFX;
     public AudioClip EnemyPunchSFX;
-    public AudioClip EnemyDeath;
+    public AudioClip EnemyDeathSFX;
+    public AudioClip EnemyRammedSFX;
 
 
-    public AudioSource Source;
+    [HideInInspector] public AudioSource Source;
     [HideInInspector] public float DamageReduction = 1f;
     [HideInInspector] public float CurrentHealth;
     [HideInInspector] public bool Rammed;
@@ -108,7 +109,7 @@ public class Enemy : MonoBehaviour, IDamageable, ITargetable
             {
                 Destroy(item);
             }
-            AudioSource.PlayClipAtPoint(EnemyDeath, transform.position);
+            AudioSource.PlayClipAtPoint(EnemyDeathSFX, transform.position);
             Instantiate(DeathEffect, transform.position + Vector3.up, transform.rotation);
             Destroy(gameObject);
         }

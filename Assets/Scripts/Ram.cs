@@ -32,9 +32,10 @@ public class Ram : MonoBehaviour
     {
         if (CarRb.velocity.magnitude > 15)
         {
-            foreach (var item in EnemiesOnRam)
+            foreach (var enemy in EnemiesOnRam)
             {
-                item.Damage(Mathf.RoundToInt(CarRb.velocity.magnitude)*2,DamageType.Ram);
+                enemy.Damage(Mathf.RoundToInt(CarRb.velocity.magnitude)*2,DamageType.Ram);
+                AudioSource.PlayClipAtPoint(enemy.EnemyRammedSFX, transform.position, 1);
             }
         }
     }

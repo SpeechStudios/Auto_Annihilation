@@ -425,6 +425,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 659758313684861051}
     m_Modifications:
+    - target: {fileID: 37626086437285274, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 219640709911932599, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3571404096703499889, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: looping
       value: 0
@@ -440,6 +448,10 @@ PrefabInstance:
     - target: {fileID: 4302550675218947299, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249851831502227754, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5495170281282221496, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: looping
@@ -452,6 +464,14 @@ PrefabInstance:
     - target: {fileID: 5952998156908756538, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: m_Name
       value: StuckHit1
+      objectReference: {fileID: 0}
+    - target: {fileID: 5952998156908756538, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395606406075573677, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7565376256872899554, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: m_RootOrder
@@ -2526,7 +2546,7 @@ Rigidbody:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174582776857385665}
   serializedVersion: 2
-  m_Mass: 0.5
+  m_Mass: 0.1
   m_Drag: 0
   m_AngularDrag: 0.05
   m_UseGravity: 0
@@ -2542,9 +2562,9 @@ CapsuleCollider:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 174582776857385665}
   m_Material: {fileID: 0}
-  m_IsTrigger: 0
-  m_Enabled: 1
-  m_Radius: 3
+  m_IsTrigger: 1
+  m_Enabled: 0
+  m_Radius: 2
   m_Height: 10
   m_Direction: 1
   m_Center: {x: 0, y: 4.5, z: 0}
@@ -2560,15 +2580,15 @@ AudioSource:
   OutputAudioMixerGroup: {fileID: 0}
   m_audioClip: {fileID: 0}
   m_PlayOnAwake: 1
-  m_Volume: 1
+  m_Volume: 0.2
   m_Pitch: 1
   Loop: 0
   Mute: 0
   Spatialize: 0
   SpatializePostEffects: 0
-  Priority: 128
+  Priority: 148
   DopplerLevel: 1
-  MinDistance: 1
+  MinDistance: 10
   MaxDistance: 500
   Pan2D: 0
   rolloffMode: 0
@@ -2718,15 +2738,16 @@ MonoBehaviour:
     m_NumColorKeys: 3
     m_NumAlphaKeys: 2
   DeathEffect: {fileID: 7757455174143066856, guid: 604a78a98998bd647a9a463c56be9def, type: 3}
-  EnemySpawnSFX: {fileID: 8300000, guid: 9dbfcb1d86dc6d3459dfb62e34cd63e8, type: 3}
   DefaultSFX:
   - {fileID: 8300000, guid: 3ecc9aba45b9a694eb780dcb51cd48f3, type: 3}
   - {fileID: 8300000, guid: f681cc38bdf4fd9429f47a5169ecaa5b, type: 3}
   - {fileID: 8300000, guid: 7bcbcb1fbbfcca14eb714f7ad2871199, type: 3}
   - {fileID: 8300000, guid: f5581f1a39206dd4184d5d88d07de793, type: 3}
+  EnemySpawnSFX: {fileID: 8300000, guid: 9dbfcb1d86dc6d3459dfb62e34cd63e8, type: 3}
   EnemyStikeSFX: {fileID: 8300000, guid: 005c5c08b73ec2d49b861d83c2c4a95c, type: 3}
   EnemyPunchSFX: {fileID: 8300000, guid: ea562e418fb2e41ccbd603f5a2fc2097, type: 3}
-  EnemyDeath: {fileID: 8300000, guid: a32cae6822da63347ae037b3cc9f77c0, type: 3}
+  EnemyDeathSFX: {fileID: 8300000, guid: 0fc1418388891414e814a66adf947648, type: 3}
+  EnemyRammedSFX: {fileID: 8300000, guid: 61b99efab6967c744b0cbb77cad632e5, type: 3}
   Source: {fileID: 0}
   DamageReduction: 1
   CurrentHealth: 0
@@ -2748,6 +2769,14 @@ PrefabInstance:
   m_Modification:
     m_TransformParent: {fileID: 659758313684861051}
     m_Modifications:
+    - target: {fileID: 37626086437285274, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 219640709911932599, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
     - target: {fileID: 3571404096703499889, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: looping
       value: 0
@@ -2763,6 +2792,10 @@ PrefabInstance:
     - target: {fileID: 4302550675218947299, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: playOnAwake
       value: 0
+      objectReference: {fileID: 0}
+    - target: {fileID: 5249851831502227754, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 5495170281282221496, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: looping
@@ -2775,6 +2808,14 @@ PrefabInstance:
     - target: {fileID: 5952998156908756538, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: m_Name
       value: StuckHit2
+      objectReference: {fileID: 0}
+    - target: {fileID: 5952998156908756538, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
+      objectReference: {fileID: 0}
+    - target: {fileID: 7395606406075573677, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
+      propertyPath: m_Layer
+      value: 9
       objectReference: {fileID: 0}
     - target: {fileID: 7565376256872899554, guid: f0e9c560a522ee74496877bfe26892d6, type: 3}
       propertyPath: m_RootOrder

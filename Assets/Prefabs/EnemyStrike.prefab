@@ -11,7 +11,7 @@ GameObject:
   - component: {fileID: 1055298967178691433}
   - component: {fileID: 450035483270005867}
   - component: {fileID: 1171240220102334612}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Trails
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -4836,7 +4836,7 @@ GameObject:
   - component: {fileID: 8109373051317041754}
   - component: {fileID: 1013700419866707379}
   - component: {fileID: -6383710750057119289}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: EnemyStrike
   m_TagString: Untagged
   m_Icon: {fileID: 0}
@@ -9692,7 +9692,7 @@ GameObject:
   - component: {fileID: 3081711988711834169}
   - component: {fileID: 6647108585263449659}
   - component: {fileID: 3673299348821007940}
-  m_Layer: 0
+  m_Layer: 9
   m_Name: Sparks
   m_TagString: Untagged
   m_Icon: {fileID: 0}

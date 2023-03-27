@@ -10,21 +10,22 @@ public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
 
-    public GameObject PlayerBody;
+    public float TimerStart = 60f;
     public List<MeshRenderer> CarComponents;
+    public GameObject PlayerBody;
+    public GameObject PauseMenu;
+    public GameObject BlackOutScreen;
     public VehicleControl PlayerControls;
     public EnemySpawner Spawner;
-    public GameObject BlackOutScreen;
     public Animator TimeAnimator;
     public TextMeshProUGUI TimerText;
     public TextMeshProUGUI Corruption;
-    public List<Enemy> EnemyList;
     public PostProcessVolume PPVolume;
     public Gradient AtmosphereGradient;
     public ParticleSystem Atmosphere;
-    ColorGrading ColorGrading;
+    public List<Enemy> EnemyList;
 
-    public float TimerStart = 60f;
+
     public readonly float SpawnAccelleration = 100f;
     public readonly float EnemySpawnRate = 1.5f;
     private readonly float CorruptionLimit = 50f;
@@ -38,6 +39,7 @@ public class GameManager : MonoBehaviour
     private float StrikeDamge;
     private float PunchDamage;
 
+    private ColorGrading ColorGrading;
     [HideInInspector] public string GameOverString;
     GameStateBase CurrentState;
     public GameStateStart StartState = new();
@@ -65,35 +67,12 @@ public class GameManager : MonoBehaviour
     {
         StateManager();
         SetCorruption();
+        if(Input.GetKeyDown(KeyCode.Escape))
+        {
+            Pause_UnPause();
+        }
     }
-    public void CheckWeaponDamage(float Damage, DamageType dmgType)
-    {
-        if(dmgType == DamageType.MiniGun)
-        {
-            MiniGunDamage += Damage;
-        }
-        if (dmgType == DamageType.Cannon)
-        {
-            CannonDamage += Damage;
-        }
-        if (dmgType == DamageType.Rocket)
-        {
-            RocketLauncherDamage += Damage;
-        }
-        if (dmgType == DamageType.Ram)
-        {
-            RamDamage += Damage;
-        }
-        if (dmgType == DamageType.EnemyPunch)
-        {
-            PunchDamage += Damage;
-        }
-        if (dmgType == DamageType.EnemyStrike)
-        {
-            StrikeDamge += Damage;
-        }
 
-    }
     public void CheckInvunrability()
     {
         if (PlayerControls.currentHealth <= PlayerControls.MaxHealth/2)
@@ -170,6 +149,7 @@ public class GameManager : MonoBehaviour
         Camera.main.transform.GetComponent<VehicleCamera>().ResetCar();
         Physics.IgnoreLayerCollision(3, 9,true);
         EnableMeshRenderer(false);
+        PlayerControls.carParticles.InvunrableVFX.Play();
         yield return new WaitForSeconds(0.25f);
         EnableMeshRenderer(true);
         yield return new WaitForSeconds(0.25f);
@@ -206,6 +186,7 @@ public class GameManager : MonoBehaviour
         EnableMeshRenderer(true);
         yield return new WaitForSeconds(0.25f);
         EnableMeshRenderer(false);
+        PlayerControls.carParticles.InvunrableVFX.Stop();
         yield return new WaitForSeconds(0.25f);
         EnableMeshRenderer(true);
         yield return new WaitForSeconds(0.25f);
@@ -225,5 +206,50 @@ public class GameManager : MonoBehaviour
     public void Restart()
     {
         SceneManager.LoadScene(0);
+    }
+    public void Pause_UnPause()
+    {
+        if(!PauseMenu.activeInHierarchy)
+        {
+            PauseMenu.SetActive(true);
+            Time.timeScale = 0;
+        }
+        else
+        {
+            PauseMenu.SetActive(false);
+            Time.timeScale = 1;
+        }
+    }
+    public void Quit()
+    {
+        Application.Quit();
+    }
+    public void CheckWeaponDamage(float Damage, DamageType dmgType)
+    {
+        if (dmgType == DamageType.MiniGun)
+        {
+            MiniGunDamage += Damage;
+        }
+        if (dmgType == DamageType.Cannon)
+        {
+            CannonDamage += Damage;
+        }
+        if (dmgType == DamageType.Rocket)
+        {
+            RocketLauncherDamage += Damage;
+        }
+        if (dmgType == DamageType.Ram)
+        {
+            RamDamage += Damage;
+        }
+        if (dmgType == DamageType.EnemyPunch)
+        {
+            PunchDamage += Damage;
+        }
+        if (dmgType == DamageType.EnemyStrike)
+        {
+            StrikeDamge += Damage;
+        }
+
     }
 }

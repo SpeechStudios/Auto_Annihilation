@@ -5,7 +5,7 @@ using UnityEngine;
 public class Shooting : MonoBehaviour
 {
     //public GameObject Targeter;
-    public LayerMask WeaponHitMask, Enemymask;
+    public LayerMask WeaponHitMask, Enemymask, TargeterMask;
     [Header("Targeting")]
     public GameObject TargeterPrefab;
     public Transform Targeter_Start;
@@ -82,10 +82,16 @@ public class Shooting : MonoBehaviour
     }
     void Targeter()
     {
+        FindClosestEnemy();
         Targeter_Start.localRotation = Quaternion.Euler(Camera.main.transform.localRotation.eulerAngles.x - 20, Camera.main.transform.localRotation.eulerAngles.y, 0);
         var pos = Targeter_Start.transform.position + Targeter_Start.transform.forward.normalized * Targeter_Range;
+        if (Physics.Raycast(Targeter_Start.position, Targeter_Start.transform.forward, out RaycastHit rayhit, Targeter_Range, TargeterMask))
+        {
+            TargeterPrefab.transform.position = rayhit.point;
+            return;
+        }
         TargeterPrefab.transform.position = pos;
-        FindClosestEnemy();
+
     }
     void FindClosestEnemy()
     {
@@ -117,8 +123,7 @@ public class Shooting : MonoBehaviour
         MyCannon.CannonTimer += Time.deltaTime;
         if (Input.GetButton("Fire1"))
         {
-            RaycastHit rayhit;
-            if (Physics.Raycast(Targeter_Start.position, Targeter_Start.transform.forward, out rayhit, Targeter_Range, WeaponHitMask))
+            if (Physics.Raycast(Targeter_Start.position, Targeter_Start.transform.forward, out RaycastHit rayhit, Targeter_Range, WeaponHitMask))
             {
                 if (MyCannon.CannonTimer > MyCannon.CannonFireRate)
                 {
@@ -208,7 +213,6 @@ public class Shooting : MonoBehaviour
         theRocket.Target = targetPosition;
         theRocket.RocketSpeed = MyRocket.RocketSpeed;
         theRocket.ExplosionDamage = MyRocket.RocketDamage;
-        //theRocket.WeaponHitMask = WeaponHitMask;
     }
     void MiniGunFX()
     {
