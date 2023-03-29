@@ -6,6 +6,7 @@ public class Ram : MonoBehaviour
     public Rigidbody CarRb;
     public Transform RamPosition;
     public List<Enemy> EnemiesOnRam;
+    public int CrashSoundIndex;
 
     private void OnTriggerEnter(Collider other)
     {
@@ -37,6 +38,7 @@ public class Ram : MonoBehaviour
                 enemy.Damage(Mathf.RoundToInt(CarRb.velocity.magnitude)*2,DamageType.Ram);
                 AudioSource.PlayClipAtPoint(enemy.EnemyRammedSFX, transform.position, 1);
             }
+            AudioSource.PlayClipAtPoint(GameManager.Instance.SoundManager.TryGetClip(CrashSoundIndex), transform.position, CarRb.velocity.magnitude / 5);
         }
     }
 }

@@ -4,86 +4,107 @@ using UnityEngine;
 
 public abstract class GameStateBase
 {
-    public abstract void EnterState(GameManager gm);
-    public abstract void UpdateState(GameManager gm);
+    public abstract void EnterState();
+    public abstract void UpdateState();
+    public void PauseInteraction()
+    {
+        if (Input.GetKeyDown(KeyCode.Escape))
+        {
+            GameManager.Instance.Pause_UnPause();
+        }
+    }
 }
-public class GameStateStart : GameStateBase
+public class GameStateLoading : GameStateBase
 {
-    public override void EnterState(GameManager gm)
+    bool HoldingDown = false;
+    public override void EnterState()
     {
-        Cursor.visible = false;
         Cursor.lockState = CursorLockMode.None;
-        gm.Spawner.SpawnTime = gm.EnemySpawnRate;
-        gm.SwitchState(gm.SurviveState);
+        GameManager.Instance.EnableStartComponents(false);
+        GameManager.Instance.loading.LoadGame();
     }
 
-    public override void UpdateState(GameManager gm)
+    public override void UpdateState()
     {
-
+        if (GameManager.Instance.loading.enabled)
+        {
+            if (Input.anyKey)
+            {
+                GameManager.Instance.StartGame();
+            }
+        }
     }
+
 }
 public class GameStateSurvive : GameStateBase
 {
     float Timer;
-    public override void EnterState(GameManager gm)
+    public override void EnterState()
     {
-        Timer = gm.TimerStart;
+        Cursor.visible = false;
+        Cursor.lockState = CursorLockMode.Locked;
+        GameManager.Instance.Spawner.SpawnTime = GameManager.Instance.EnemySpawnRate;
+        Timer = GameManager.Instance.TimerStart;
     }
 
-    public override void UpdateState(GameManager gm)
+    public override void UpdateState()
     {
-        gm.CheckInvunrability();
-        gm.Spawner.SpawnTime -= (Time.deltaTime / (gm.SpawnAccelleration - gm.EnemyList.Count));
+        GameManager.Instance.CheckInvunrability();
+        GameManager.Instance.Spawner.SpawnTime -= (Time.deltaTime / (GameManager.Instance.SpawnAccelleration - GameManager.Instance.EnemyList.Count));
         Timer -= Time.deltaTime;
         float minutes = Mathf.FloorToInt(Timer / 60);
         float seconds = Mathf.FloorToInt(Timer % 60);
-        gm.TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds) + " SURVIVE";
+        GameManager.Instance.TimerText.text = string.Format("{0:00}:{1:00}", minutes, seconds) + " SURVIVE";
         if (Timer < 0)
         {
-            gm.SwitchState(gm.ClenseState);
+            GameManager.Instance.SwitchState(GameManager.Instance.ClenseState);
         }
+        PauseInteraction();
+        GameManager.Instance.SetCorruption();
     }
 }
 public class GameStateClense : GameStateBase
 {
-    public override void EnterState(GameManager gm)
+    public override void EnterState()
     {
-        gm.TimerText.gameObject.transform.position = Vector3.zero;
-        gm.TimeAnimator.SetTrigger("ClenseCorruption");
-        gm.TimerText.text = "<size=80%>Clense Corruption";
-        gm.Spawner.enabled = false;
+        GameManager.Instance.TimerText.gameObject.transform.position = Vector3.zero;
+        GameManager.Instance.TimeAnimator.SetTrigger("ClenseCorruption");
+        GameManager.Instance.TimerText.text = "<size=80%>Clense Corruption";
+        GameManager.Instance.Spawner.enabled = false;
     }
 
-    public override void UpdateState(GameManager gm)
+    public override void UpdateState()
     {
-        gm.CheckInvunrability();
-        if (gm.EnemyList.Count == 0)
+        GameManager.Instance.CheckInvunrability();
+        if (GameManager.Instance.EnemyList.Count == 0)
         {
-            gm.SwitchState(gm.WinState);
+            GameManager.Instance.SwitchState(GameManager.Instance.WinState);
         }
+        PauseInteraction();
+        GameManager.Instance.SetCorruption();
     }
 }
 public class GameStateLose : GameStateBase
 {
-    public override void EnterState(GameManager gm)
+    public override void EnterState()
     {
-        gm.GameOver(gm.GameOverString);
+        GameManager.Instance.GameOver();
     }
 
-    public override void UpdateState(GameManager gm)
+    public override void UpdateState()
     {
 
     }
 }
 public class GameStateWin : GameStateBase
 {
-    public override void EnterState(GameManager gm)
+    public override void EnterState()
     {
-        gm.GameOverString = "You Won!";
-        gm.GameOver(gm.GameOverString);
+        GameManager.Instance.GameOverString = "You Won!";
+        GameManager.Instance.GameOver();
     }
 
-    public override void UpdateState(GameManager gm)
+    public override void UpdateState()
     {
 
     }

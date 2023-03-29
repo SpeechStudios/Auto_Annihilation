@@ -62,15 +62,15 @@ MonoBehaviour:
   destroyTime: 7
   useWorldSpace: 1
   direction: {x: 0, y: 75.15689, z: 0.18732634}
-  fireballAMaterial: {fileID: 0}
-  fireballBMaterial: {fileID: 0}
-  smokeAMaterial: {fileID: 0}
-  smokeBMaterial: {fileID: 0}
-  shockwaveMaterial: {fileID: 0}
-  sparksMaterial: {fileID: 0}
-  glowMaterial: {fileID: 0}
-  heatwaveMaterial: {fileID: 0}
-  autoCreateFireball: 1
+  fireballAMaterial: {fileID: 2100000, guid: 3049dffabc5225d40b27675901977fdd, type: 2}
+  fireballBMaterial: {fileID: 2100000, guid: 02a46fb295082ed488cab61782ddc01f, type: 2}
+  smokeAMaterial: {fileID: 2100000, guid: f892253ab15f74115b6d10bd736b2e29, type: 2}
+  smokeBMaterial: {fileID: 2100000, guid: 36aa334bd0865ca459c9b3dfbbaf7198, type: 2}
+  shockwaveMaterial: {fileID: 2100000, guid: 21588279b895eef48a0448f7f2519813, type: 2}
+  sparksMaterial: {fileID: 2100000, guid: 35c8aea4fddc3f842bd829a8fd3d7e1c, type: 2}
+  glowMaterial: {fileID: 2100000, guid: b4d8055067ce04d4c98367d69c10b358, type: 2}
+  heatwaveMaterial: {fileID: 2100000, guid: 93dce8cc7e473ee45b0642d381f4b314, type: 2}
+  autoCreateFireball: 0
   autoCreateSparks: 1
   autoCreateShockwave: 1
   autoCreateSmoke: 1
@@ -85,7 +85,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: f7134859da924a14b9de2f13721402b1, type: 3}
   m_Name: 
@@ -122,7 +122,7 @@ MonoBehaviour:
   m_PrefabInstance: {fileID: 0}
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 100000}
-  m_Enabled: 1
+  m_Enabled: 0
   m_EditorHideFlags: 0
   m_Script: {fileID: 11500000, guid: e0a30e21f576d054695cb3804fce8a9d, type: 3}
   m_Name: 
@@ -149,7 +149,7 @@ MonoBehaviour:
   detailThreshold: 0.88950825
   zOffset: 0.97655946
   distortion: 38.150185
-  heatwaveMaterial: {fileID: 0}
+  heatwaveMaterial: {fileID: 2100000, guid: 93dce8cc7e473ee45b0642d381f4b314, type: 2}
 --- !u!114 &11400006
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -182,7 +182,7 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 300, y: 300, z: 300}
   detailThreshold: 0
-  sparksMaterial: {fileID: 0}
+  sparksMaterial: {fileID: 2100000, guid: 35c8aea4fddc3f842bd829a8fd3d7e1c, type: 2}
 --- !u!114 &11400008
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -215,7 +215,7 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   detailThreshold: 0
-  shockwaveMaterial: {fileID: 0}
+  shockwaveMaterial: {fileID: 2100000, guid: 21588279b895eef48a0448f7f2519813, type: 2}
 --- !u!114 &11400010
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -248,9 +248,9 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 0, y: 0, z: 0}
   detailThreshold: 0
-  fireballAMaterial: {fileID: 0}
-  fireballBMaterial: {fileID: 0}
-  fireShadowMaterial: {fileID: 0}
+  fireballAMaterial: {fileID: 2100000, guid: 3049dffabc5225d40b27675901977fdd, type: 2}
+  fireballBMaterial: {fileID: 2100000, guid: 02a46fb295082ed488cab61782ddc01f, type: 2}
+  fireShadowMaterial: {fileID: 2100000, guid: 78c0a732ad112a541100162a44295342, type: 2}
   drawFireballA: 1
   drawFireballB: 1
   drawFireShadow: 1
@@ -361,7 +361,7 @@ MonoBehaviour:
   startVelocity: {x: 0, y: 0, z: 0}
   velocity: {x: 200, y: 0, z: 200}
   detailThreshold: 1
-  cloudRingMaterial: {fileID: 0}
+  cloudRingMaterial: {fileID: 2100000, guid: 450dd918846b28b408e044f16f827449, type: 2}
 --- !u!114 &-2369569267970684744
 MonoBehaviour:
   m_ObjectHideFlags: 0
@@ -379,3 +379,4 @@ MonoBehaviour:
     serializedVersion: 2
     m_Bits: 512
   Damage: 40
+  dmgType: 0

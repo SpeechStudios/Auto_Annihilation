@@ -51,16 +51,6 @@ public class VehicleDamage : MonoBehaviour
 
             colPointToMe = transform.position - collision.contacts[0].point;
             colStrength = colRelVel.magnitude * Vector3.Dot(collision.contacts[0].normal, colPointToMe.normalized);
-
-
-            if (colPointToMe.magnitude > 1.0f && !crashSound.isPlaying)
-            {
-                crashSound.Play();
-                crashSound.volume = colStrength / 200;
-
-                OnMeshForce(collision.contacts[0].point, Mathf.Clamp01(colStrength / maxCollisionStrength));
-
-            }
         }
 
     }
