@@ -76,7 +76,6 @@ public class Enemy : MonoBehaviour, IDamageable, ITargetable
     {
         float ActualDamage = Interfaces.RandomizeDamage(damage);
         CurrentHealth -= ActualDamage;
-        GameManager.Instance.CheckWeaponDamage(damage, dmgType);
         if (CurrentHealth > 0)
         {
             GetHit(1);

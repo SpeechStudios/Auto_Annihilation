@@ -849,7 +849,6 @@ public class VehicleControl : MonoBehaviour, IDamageable
         if (!Invunrable)
         {
             currentHealth -= damage;
-            GameManager.Instance.CheckWeaponDamage(damage, dmgType);
 
             //Particle OnHit Effect
             GameObject obj = Instantiate(carParticles.HitParticle, Camera.main.transform);

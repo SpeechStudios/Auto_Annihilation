@@ -13,10 +13,15 @@ public abstract class GameStateBase
             GameManager.Instance.Pause_UnPause();
         }
     }
+    public void EndGameState()
+    {
+        GameManager.Instance.Car.GetComponent<VehicleControl>().enabled = false;
+        GameManager.Instance.Car.GetComponent<Shooting>().enabled = false;
+        GameManager.Instance.Car.GetComponent<Rigidbody>().constraints = RigidbodyConstraints.FreezeAll;
+    }
 }
 public class GameStateLoading : GameStateBase
 {
-    bool HoldingDown = false;
     public override void EnterState()
     {
         Cursor.lockState = CursorLockMode.None;
@@ -89,11 +94,12 @@ public class GameStateLose : GameStateBase
     public override void EnterState()
     {
         GameManager.Instance.GameOver();
+        EndGameState();
     }
 
     public override void UpdateState()
     {
-
+        AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, 0.2f, Time.deltaTime / 6);
     }
 }
 public class GameStateWin : GameStateBase
@@ -102,10 +108,11 @@ public class GameStateWin : GameStateBase
     {
         GameManager.Instance.GameOverString = "You Won!";
         GameManager.Instance.GameOver();
+        EndGameState();
     }
 
     public override void UpdateState()
     {
-
+        AudioListener.volume = Mathf.MoveTowards(AudioListener.volume, 0.2f, Time.deltaTime / 6);
     }
 }

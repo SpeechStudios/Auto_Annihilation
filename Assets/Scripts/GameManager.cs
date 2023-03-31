@@ -10,13 +10,15 @@ using UnityEngine.Rendering.Universal;
 public class GameManager : MonoBehaviour
 {
     public static GameManager Instance { get; private set; }
+    public float TimerStart = 60f;
     public SoundManager SoundManager;
     public GameObject Car;
     public GameObject InitialEnemies;
-
-    public float TimerStart = 60f;
-    public List<MeshRenderer> CarComponents;
     public GameObject PauseMenu, GameMenu;
+
+
+    public List<MeshRenderer> CarComponents;
+
     public Image BlackOutScreen;
 
     public EnemySpawner Spawner;
@@ -37,12 +39,7 @@ public class GameManager : MonoBehaviour
     private bool GameOverBool;
     private bool Invunrability;
 
-    private float MiniGunDamage;
-    private float CannonDamage;
-    private float RocketLauncherDamage;
-    private float RamDamage;
-    private float StrikeDamge;
-    private float PunchDamage;
+
 
     private VehicleControl VehicleControls;
     private VehicleCamera VehicleCamera;
@@ -72,6 +69,7 @@ public class GameManager : MonoBehaviour
         Shooting = Car.GetComponent<Shooting>();
         CurrentState =  LoadingState;
         CurrentState.EnterState();
+        AudioListener.volume = 0.8f;
     }
 
     void Update()
@@ -95,6 +93,7 @@ public class GameManager : MonoBehaviour
     {
         if (!GameOverBool)
         {
+            SoundManager.EnableCarSounds(false);
             GameOverBool = true;
             StartCoroutine(FadeIn());
             TimerText.text = GameOverString;
@@ -113,15 +112,11 @@ public class GameManager : MonoBehaviour
         ColorGrading.colorFilter.value = AtmosphereGradient.Evaluate(percentageCorruption);
         var emission = Atmosphere.emission;
         emission.rateOverTime = 10f * EnemyList.Count;
+        SoundManager.BackgroundMusic.volume = percentageCorruption;
     }
     void StateManager()
     {
         CurrentState.UpdateState();
-    }
-
-    public void StartGame()
-    {
-        StartCoroutine("StartTheGame");
     }
     public void SwitchState(GameStateBase state)
     {
@@ -129,83 +124,61 @@ public class GameManager : MonoBehaviour
         state.EnterState();
     }
 
-    IEnumerator Fadeout()
+
+
+    private void EnableMeshRenderer(bool enable)
     {
-        for (float f = 1; f > -0.05f; f-=0.01f)
+        foreach (var item in CarComponents)
         {
-            Color c = BlackOutScreen.color;
-            c.a = f;
-            BlackOutScreen.color = c;
-            yield return new WaitForSeconds(0.01f);
+            item.enabled = enable;
         }
     }
-    IEnumerator FadeIn()
+    public void EnableStartComponents(bool enable)
     {
-        for (float f = 0; f < 1.05f; f += 0.01f)
-        {
-            Color c = BlackOutScreen.color;
-            c.a = f;
-            BlackOutScreen.color = c;
-            yield return new WaitForSeconds(0.01f);
-        }
-        Cursor.visible = true;
-        Cursor.lockState = CursorLockMode.None;
+        Car.GetComponent<Rigidbody>().isKinematic = !enable;
+        Car.GetComponent<Rigidbody>().useGravity = enable;
+        Cursor.visible = !enable;
+        VehicleControls.enabled = enable;
+        SoundManager.EnableCarSounds(enable);
+        Shooting.enabled = enable;
+        Spawner.enabled = enable;
     }
-    IEnumerator CarInvunvrable()
+
+    public void StartGame()
     {
-        Physics.IgnoreLayerCollision(3, 9, true);
-        foreach (var item in VehicleControls.GetComponentInChildren<Ram>().EnemiesOnRam)
+        StartCoroutine("StartTheGame");
+    }
+    public void Pause_UnPause()
+    {
+        if(!PauseMenu.activeInHierarchy)
         {
-            item.Damage(item.CurrentHealth, DamageType.Instant);
+            PauseMenu.SetActive(true);
+            SoundManager.BackgroundMusic.Pause();
+            SoundManager.EnableCarSounds(false);
+            Shooting.enabled = false;
+            Cursor.visible = true;
+            Cursor.lockState = CursorLockMode.None;
+            Time.timeScale = 0;
         }
-        Camera.main.transform.GetComponent<VehicleCamera>().ResetCar();
-        EnableMeshRenderer(false);
-        VehicleControls.carParticles.InvunrableVFX.Play();
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        VehicleControls.carParticles.InvunrableVFX.Stop();
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(false);
-        yield return new WaitForSeconds(0.25f);
-        EnableMeshRenderer(true);
-        VehicleControls.Invunrable = false;
-        Physics.IgnoreLayerCollision(3, 9,false);
+        else
+        {
+            PauseMenu.SetActive(false);
+            Time.timeScale = 1;
+            SoundManager.BackgroundMusic.Play();
+            SoundManager.EnableCarSounds(true);
+            Shooting.enabled = true;
+            Cursor.visible = false;
+            Cursor.lockState = CursorLockMode.Locked;
+        }
+    }
+    public void Restart()
+    {
+        Time.timeScale = 1;
+        SceneManager.LoadScene(0);
+    }
+    public void Quit()
+    {
+        Application.Quit();
     }
 
     IEnumerator StartTheGame()
@@ -220,78 +193,59 @@ public class GameManager : MonoBehaviour
         Car.GetComponent<Animation>().Play();
         InitialEnemies.SetActive(true);
         SoundManager.BackgroundMusic.enabled = true;
+        TimeAnimator.gameObject.SetActive(true);
         yield return new WaitForSeconds(1f);
         EnableStartComponents(true);
+        Shooting.TargeterPrefab.SetActive(true);
 
     }
-    void EnableMeshRenderer(bool enable)
+    IEnumerator FadeIn()
     {
-        foreach (var item in CarComponents)
+        for (float f = 0; f < 1.05f; f += 0.01f)
         {
-            item.enabled = enable;
+            Color c = BlackOutScreen.color;
+            c.a = f;
+            BlackOutScreen.color = c;
+            yield return new WaitForSeconds(0.01f);
+        }
+        Cursor.visible = true;
+        Cursor.lockState = CursorLockMode.None;
+    }
+    IEnumerator Fadeout()
+    {
+        for (float f = 1; f > -0.05f; f -= 0.01f)
+        {
+            Color c = BlackOutScreen.color;
+            c.a = f;
+            BlackOutScreen.color = c;
+            yield return new WaitForSeconds(0.01f);
         }
     }
-    public void EnableStartComponents(bool enable)
+    IEnumerator CarInvunvrable()
     {
-        Car.GetComponent<Rigidbody>().isKinematic = !enable;
-        Car.GetComponent<Rigidbody>().useGravity = enable;
-        Cursor.visible = !enable;
-        VehicleControls.enabled = enable;
-        Shooting.enabled = enable;
-        SoundManager.EnableCarSounds(enable);
-        Spawner.enabled = enable;
-    }
-    public void Restart()
-    {
-        SceneManager.LoadScene(0);
-    }
-    public void Pause_UnPause()
-    {
-        if(!PauseMenu.activeInHierarchy)
+        Physics.IgnoreLayerCollision(3, 9, true);
+        foreach (var item in VehicleControls.GetComponentInChildren<Ram>().EnemiesOnRam)
         {
-            PauseMenu.SetActive(true);
-            SoundManager.BackgroundMusic.Pause();
-            SoundManager.EnableCarSounds(false);
-            Time.timeScale = 0;
+            item.Damage(item.CurrentHealth, DamageType.Instant);
         }
-        else
+        Camera.main.transform.GetComponent<VehicleCamera>().ResetCar();
+        EnableMeshRenderer(false);
+        VehicleControls.carParticles.InvunrableVFX.Play();
+        for (int i = 0; i < 9; i++)
         {
-            PauseMenu.SetActive(false);
-            Time.timeScale = 1;
-            SoundManager.BackgroundMusic.Play();
-            SoundManager.EnableCarSounds(true);
+            yield return new WaitForSeconds(0.25f);
+            EnableMeshRenderer(true);
+            yield return new WaitForSeconds(0.25f);
+            EnableMeshRenderer(false);
         }
-    }
-    public void Quit()
-    {
-        Application.Quit();
-    }
-    public void CheckWeaponDamage(float Damage, DamageType dmgType)
-    {
-        if (dmgType == DamageType.MiniGun)
-        {
-            MiniGunDamage += Damage;
-        }
-        if (dmgType == DamageType.Cannon)
-        {
-            CannonDamage += Damage;
-        }
-        if (dmgType == DamageType.Rocket)
-        {
-            RocketLauncherDamage += Damage;
-        }
-        if (dmgType == DamageType.Ram)
-        {
-            RamDamage += Damage;
-        }
-        if (dmgType == DamageType.EnemyPunch)
-        {
-            PunchDamage += Damage;
-        }
-        if (dmgType == DamageType.EnemyStrike)
-        {
-            StrikeDamge += Damage;
-        }
-
+        VehicleControls.carParticles.InvunrableVFX.Stop();
+        yield return new WaitForSeconds(0.25f);
+        EnableMeshRenderer(true);
+        yield return new WaitForSeconds(0.25f);
+        EnableMeshRenderer(false);
+        yield return new WaitForSeconds(0.25f);
+        EnableMeshRenderer(true);
+        VehicleControls.Invunrable = false;
+        Physics.IgnoreLayerCollision(3, 9, false);
     }
 }

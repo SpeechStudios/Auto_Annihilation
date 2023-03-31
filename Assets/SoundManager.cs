@@ -23,6 +23,8 @@ public class SoundManager : MonoBehaviour
             AudioSource.enabled = Enable;
             if(Enable == true)
             {
+                if (AudioSource.gameObject.name == "Cannon")
+                    return;
                 AudioSource.Play();
             }
             else
